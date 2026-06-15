@@ -6,6 +6,8 @@ namespace projek_PBOSQL.MODELS.Pengguna
 {
     public class User
     {
+        public int id_akun {  get; set; }
+
         private string username;
         private string password;
         protected string role;
@@ -14,8 +16,9 @@ namespace projek_PBOSQL.MODELS.Pengguna
         public string Username { get => username; set => username = value; }
         public string Role { get => role; set => role = value; }
 
-        protected User(string Pass, string Username, string Role)
+        protected User(int Id_akun, string Pass, string Username, string Role)
         {
+            id_akun = Id_akun;
             password = Pass;
             username = Username;
             role = Role;

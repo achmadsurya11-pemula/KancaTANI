@@ -41,6 +41,8 @@
             // lblTanggal
             // 
             lblTanggal.AutoSize = true;
+            lblTanggal.BackColor = Color.Transparent;
+            lblTanggal.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTanggal.Location = new Point(22, 229);
             lblTanggal.Name = "lblTanggal";
             lblTanggal.Size = new Size(33, 25);
@@ -50,6 +52,7 @@
             // lblMetode
             // 
             lblMetode.AutoSize = true;
+            lblMetode.BackColor = Color.Transparent;
             lblMetode.Location = new Point(22, 281);
             lblMetode.Name = "lblMetode";
             lblMetode.Size = new Size(74, 25);
@@ -59,6 +62,7 @@
             // lblTotal
             // 
             lblTotal.AutoSize = true;
+            lblTotal.BackColor = Color.Transparent;
             lblTotal.Location = new Point(157, 640);
             lblTotal.Name = "lblTotal";
             lblTotal.Size = new Size(48, 25);
@@ -68,6 +72,7 @@
             // lblBayar
             // 
             lblBayar.AutoSize = true;
+            lblBayar.BackColor = Color.Transparent;
             lblBayar.Location = new Point(22, 684);
             lblBayar.Name = "lblBayar";
             lblBayar.Size = new Size(56, 25);
@@ -77,6 +82,7 @@
             // lblKembalian
             // 
             lblKembalian.AutoSize = true;
+            lblKembalian.BackColor = Color.Transparent;
             lblKembalian.Location = new Point(22, 731);
             lblKembalian.Name = "lblKembalian";
             lblKembalian.Size = new Size(93, 25);
@@ -88,13 +94,15 @@
             btnTutup.BackColor = Color.IndianRed;
             btnTutup.FlatAppearance.BorderColor = Color.IndianRed;
             btnTutup.FlatAppearance.BorderSize = 0;
+            btnTutup.FlatStyle = FlatStyle.Flat;
             btnTutup.ForeColor = Color.WhiteSmoke;
-            btnTutup.Location = new Point(337, 2);
+            btnTutup.Location = new Point(361, 3);
             btnTutup.Name = "btnTutup";
-            btnTutup.Size = new Size(38, 31);
+            btnTutup.Size = new Size(23, 32);
             btnTutup.TabIndex = 5;
             btnTutup.Text = "x";
             btnTutup.UseVisualStyleBackColor = false;
+            btnTutup.Click += btnTutup_Click_1;
             // 
             // lstItemBelanja
             // 
@@ -110,6 +118,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(387, 803);
+            ControlBox = false;
             Controls.Add(lstItemBelanja);
             Controls.Add(btnTutup);
             Controls.Add(lblKembalian);

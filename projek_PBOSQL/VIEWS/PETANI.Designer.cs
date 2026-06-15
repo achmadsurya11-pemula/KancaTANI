@@ -42,6 +42,7 @@
             txtLuasLahan = new TextBox();
             cmbFase = new ComboBox();
             cmbTanaman = new ComboBox();
+            btnLogout = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -51,6 +52,7 @@
             // panel1
             // 
             panel1.BackColor = Color.Black;
+            panel1.Controls.Add(btnLogout);
             panel1.Controls.Add(btnHistory);
             panel1.Controls.Add(btnTransaksi);
             panel1.Controls.Add(btnAnalisa);
@@ -195,6 +197,18 @@
             cmbTanaman.Size = new Size(720, 33);
             cmbTanaman.TabIndex = 0;
             // 
+            // btnLogout
+            // 
+            btnLogout.BackColor = Color.Brown;
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(88, 1079);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(112, 34);
+            btnLogout.TabIndex = 4;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
+            // 
             // PETANI
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -230,5 +244,6 @@
         private DataGridView dgvRekomendasi;
         private Label lblTotalBiaya;
         private Button btnLanjutTransaksi;
+        private Button btnLogout;
     }
 }

@@ -40,6 +40,10 @@
             btnTransaksi = new Button();
             btnAnalisa = new Button();
             pictureBox1 = new PictureBox();
+            cmbMetodePembayaran = new ComboBox();
+            txtInputPembayaran = new TextBox();
+            lblInput = new Label();
+            button1 = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvKeranjang).BeginInit();
             panel1.SuspendLayout();
@@ -89,7 +93,7 @@
             // 
             // flpKatalog
             // 
-            flpKatalog.BackColor = Color.FromArgb(255, 255, 192);
+            flpKatalog.BackColor = Color.WhiteSmoke;
             flpKatalog.Location = new Point(306, 83);
             flpKatalog.Name = "flpKatalog";
             flpKatalog.Size = new Size(1025, 1049);
@@ -122,6 +126,7 @@
             // panel1
             // 
             panel1.BackColor = Color.Black;
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(btnHistory);
             panel1.Controls.Add(btnTransaksi);
             panel1.Controls.Add(btnAnalisa);
@@ -181,11 +186,52 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
+            // cmbMetodePembayaran
+            // 
+            cmbMetodePembayaran.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbMetodePembayaran.FormattingEnabled = true;
+            cmbMetodePembayaran.Items.AddRange(new object[] { "Tunai", "Transfer" });
+            cmbMetodePembayaran.Location = new Point(1337, 742);
+            cmbMetodePembayaran.Name = "cmbMetodePembayaran";
+            cmbMetodePembayaran.Size = new Size(182, 33);
+            cmbMetodePembayaran.TabIndex = 5;
+            // 
+            // txtInputPembayaran
+            // 
+            txtInputPembayaran.Location = new Point(1337, 825);
+            txtInputPembayaran.Name = "txtInputPembayaran";
+            txtInputPembayaran.Size = new Size(182, 31);
+            txtInputPembayaran.TabIndex = 6;
+            // 
+            // lblInput
+            // 
+            lblInput.AutoSize = true;
+            lblInput.Location = new Point(1337, 797);
+            lblInput.Name = "lblInput";
+            lblInput.Size = new Size(209, 25);
+            lblInput.TabIndex = 7;
+            lblInput.Text = "\"Jumlah Uang / No. Resi\"";
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Brown;
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(90, 1073);
+            button1.Name = "button1";
+            button1.Size = new Size(112, 34);
+            button1.TabIndex = 4;
+            button1.Text = "Logout";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // FormTransaksi
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(lblInput);
+            Controls.Add(txtInputPembayaran);
+            Controls.Add(cmbMetodePembayaran);
             Controls.Add(panel1);
             Controls.Add(btnBayar);
             Controls.Add(dgvKeranjang);
@@ -200,6 +246,7 @@
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -215,5 +262,9 @@
         private Button btnTransaksi;
         private Button btnAnalisa;
         private PictureBox pictureBox1;
+        private ComboBox cmbMetodePembayaran;
+        private TextBox txtInputPembayaran;
+        private Label lblInput;
+        private Button button1;
     }
 }

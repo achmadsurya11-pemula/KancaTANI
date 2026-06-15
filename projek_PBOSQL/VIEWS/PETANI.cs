@@ -153,5 +153,26 @@ namespace projek_PBOSQL.VIEWS
                 MessageBox.Show("Gagal memproses data untuk transaksi: " + ex.Message, "Error Sistem", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Anda yakin ingin keluar?",
+                "Konfirmasi Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                projek_PBOSQL.VIEWS.ROLE Logout = new projek_PBOSQL.VIEWS.ROLE();
+                Logout.Show();
+                this.Hide();
+            }
+            else
+            {
+
+            }
+        }
     }
 }

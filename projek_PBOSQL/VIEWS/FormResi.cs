@@ -44,6 +44,11 @@ namespace projek_PBOSQL.VIEWS
         {
             this.Close();
         }
+
+        private void btnTutup_Click_1(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }
 

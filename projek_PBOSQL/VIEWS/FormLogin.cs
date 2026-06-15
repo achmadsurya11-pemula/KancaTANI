@@ -32,6 +32,11 @@ namespace projek_PBOSQL
 
                 if (penggunaAktif != null)
                 {
+                    // 🌟 TONGKAT ESTAFET DIAWALI DI SINI!
+                    // Set nilai static session global berdasarkan object user yang berhasil login
+                    UserSession.IdAkunAktif = penggunaAktif.id_akun;       // Pastikan nama properti ID di class User-mu sesuai (misal: Id atau IdAkun)
+                    UserSession.NamaAktif = penggunaAktif.Username;   // Menyimpan nama untuk keperluan display/history
+
                     MessageBox.Show($"Selamat datang kembali, {penggunaAktif.Username}!", "Login Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     if (penggunaAktif.Role.ToLower() == "admin")

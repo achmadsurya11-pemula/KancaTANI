@@ -21,11 +21,11 @@ namespace projek_PBOSQL.VIEWS
         // Dictionary untuk menyimpan relasi ID Pupuk dan Nama Pupuk untuk visualisasi DataGridView
         private Dictionary<int, string> _namaPupukDict = new Dictionary<int, string>();
 
-        private int _idAkunAktif = 1;
         public FormTransaksi()
         {
             InitializeComponent();
             LoadKatalogDanToko();
+            cmbMetodePembayaran.SelectedIndex = 0;
         }
         public FormTransaksi(List<DetailTransaksi> rekomendasiAnalisis)
         {
@@ -129,22 +129,61 @@ namespace projek_PBOSQL.VIEWS
 
         private void btnBayar_Click(object sender, EventArgs e)
         {
+            int idAkunSaatIni = UserSession.IdAkunAktif;
+
+            // Cek darurat: kalau ID-nya 0
+            if (idAkunSaatIni == 0)
+            {
+                MessageBox.Show("Error: ID Sesi Pengguna tidak terbaca (Bernilai 0). Periksa Controller Login Anda!", "Error Internal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (_keranjangBelanja == null || _keranjangBelanja.Count == 0)
+            {
+                MessageBox.Show("Gagal Checkout! Keranjang belanja masih kosong.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 int idTokoTerpilih = Convert.ToInt32(cmbToko.SelectedValue);
+                string inputKasir = txtInputPembayaran.Text.Trim();
 
-                // Mengirimkan List data objek murni ke Controller untuk dieksekusi oleh Stored Procedure & SQL Transaction
-                bool sukses = _transactionController.ValidasiDanSimpan(_idAkunAktif, idTokoTerpilih, _keranjangBelanja);
-
-                if (sukses)
+                // Hitung total belanjaan
+                double totalBelanjaSaya = 0;
+                foreach (var item in _keranjangBelanja)
                 {
-                    MessageBox.Show("Transaksi Berhasil diproses!",
-                                    "Sistem Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    totalBelanjaSaya += item.totalHarga;
+                }
 
-                    // Reset ulang form setelah belanja selesai
-                    _keranjangBelanja.Clear();
-                    RefreshDataGridViewKeranjang();
-                    LoadKatalogProdukUC(); // Memuat ulang katalog 
+                // Deklarasikan Objek Induk Abstrak
+                CONTROLLERS.MetodePembayaran eksekutor = null;
+
+                // Validasi combo box (Biar aman kalau nggak sengaja kosong)
+                string metodePilihan = cmbMetodePembayaran.SelectedItem?.ToString() ?? "Tunai";
+
+                // Polymorphism
+                if (metodePilihan == "Tunai")
+                {
+                    eksekutor = new CONTROLLERS.PembayaranTunai();
+                }
+                else
+                {
+                    eksekutor = new CONTROLLERS.PembayaranTransfer();
+                }
+
+                if (eksekutor != null)
+                {
+                    // 🌟 2. PERBAIKAN FATAL: Gunakan variabel 'idAkunSaatIni' di sini!
+                    bool sukses = eksekutor.ProsesPembayaran(totalBelanjaSaya, _keranjangBelanja, inputKasir, idAkunSaatIni, idTokoTerpilih);
+
+                    if (sukses)
+                    {
+                        _keranjangBelanja.Clear();
+                        RefreshDataGridViewKeranjang();
+                        LoadKatalogProdukUC();
+                        txtInputPembayaran.Clear();
+                    }
                 }
             }
             catch (Exception ex)
@@ -168,6 +207,27 @@ namespace projek_PBOSQL.VIEWS
         private void btnHistory_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Anda yakin ingin keluar?",
+                "Konfirmasi Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                projek_PBOSQL.VIEWS.ROLE Logout = new projek_PBOSQL.VIEWS.ROLE();
+                Logout.Show();
+                this.Hide();
+            }
+            else
+            {
+
+            }
         }
     }
 }

@@ -14,17 +14,24 @@ namespace projek_PBOSQL.MODELS
         private string connstring = "Host=localhost;Username=postgres;Password=1111;Database=KancaTani";
         public DataTable GetTransaksi()
         {
+            int idLog = UserSession.IdAkunAktif;
             var dt = new DataTable();
 
-            string query = "SELECT * FROM v_historyTansaksi";
+            // 🌟 PERBAIKAN 1: Sesuaikan nama view dengan SQL-mu (v_historyTansaksi)
+            string query = "SELECT * FROM v_historyTansaksi WHERE id_akun = @idAkun";
 
             try
             {
                 using (var conn = ConnectDB.GetConn())
                 using (var cmd = new NpgsqlCommand(query, conn))
-                using (var adapter = new NpgsqlDataAdapter(cmd))
                 {
-                    adapter.Fill(dt);
+                    // 🌟 PERBAIKAN 2: Wajib masukkan parameter ke command agar query tahu siapa yang login
+                    cmd.Parameters.AddWithValue("@idAkun", idLog);
+
+                    using (var adapter = new NpgsqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dt);
+                    }
                 }
             }
             catch (Exception ex)

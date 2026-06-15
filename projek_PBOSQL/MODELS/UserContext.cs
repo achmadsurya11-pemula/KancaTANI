@@ -14,7 +14,7 @@ namespace projek_PBOSQL.MODELS
 
         public User AmbilDataLogin(string username, string password)
         {
-            string query = "SELECT username, password, id_role, nama_role FROM v_login_akun WHERE username = @username AND password = @password";
+            string query = "SELECT id_akun, username, password, id_role, nama_role FROM v_login_akun WHERE username = @username AND password = @password";
 
             try
             {
@@ -29,20 +29,27 @@ namespace projek_PBOSQL.MODELS
                     {
                         if (reader.Read())
                         {
+                            int idAkun = Convert.ToInt32(reader["id_akun"]);
                             int id_role = Convert.ToInt32(reader["id_role"]);
                             string uName = reader["username"]?.ToString() ?? "";
                             string pass = reader["password"]?.ToString() ?? "";
                             string roleText = reader["nama_role"]?.ToString() ?? "petani";
 
+                            User pengguna;
+
                             // Mengembalikan objek konkrit berdasarkan id_role
                             if (id_role == 1)
                             {
-                                return new Admin(pass, uName, roleText);
+                                return new Admin(idAkun,pass, uName, roleText);
                             }
                             else
                             {
-                                return new Petani(pass, uName, roleText);
+                                return new Petani(idAkun,pass, uName, roleText);
                             }
+
+                            pengguna.id_akun = idAkun;
+
+                            return pengguna;
                         }
                     }
                 }
