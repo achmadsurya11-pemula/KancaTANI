@@ -3,6 +3,7 @@ using projek_PBOSQL.MODELS;
 using projek_PBOSQL.MODELS.Pengguna;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
@@ -26,6 +27,10 @@ namespace projek_PBOSQL.CONTROLLERS
             {
                 throw new Exception("Gagal melakukan autentikasi login: " + ex.Message);
             }
+        }
+        public DataTable GetTransaksiByPetani()
+        {
+            return _userContext.GetTransaksiByPetani();
         }
     }
 }

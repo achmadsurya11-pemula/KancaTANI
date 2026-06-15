@@ -143,6 +143,16 @@ namespace projek_PBOSQL.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap History_transaksi {
+            get {
+                object obj = ResourceManager.GetObject("History transaksi", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_dan_teks_pojok {
             get {
                 object obj = ResourceManager.GetObject("logo dan teks pojok", resourceCulture);

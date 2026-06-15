@@ -106,8 +106,11 @@
             // 
             // lstItemBelanja
             // 
+            lstItemBelanja.BackColor = Color.Gray;
+            lstItemBelanja.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lstItemBelanja.ForeColor = Color.White;
             lstItemBelanja.FormattingEnabled = true;
-            lstItemBelanja.Location = new Point(22, 353);
+            lstItemBelanja.Location = new Point(22, 351);
             lstItemBelanja.Name = "lstItemBelanja";
             lstItemBelanja.Size = new Size(343, 254);
             lstItemBelanja.TabIndex = 6;

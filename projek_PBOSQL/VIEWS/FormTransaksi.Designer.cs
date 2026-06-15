@@ -36,6 +36,7 @@
             dgvKeranjang = new DataGridView();
             btnBayar = new Button();
             panel1 = new Panel();
+            button1 = new Button();
             btnHistory = new Button();
             btnTransaksi = new Button();
             btnAnalisa = new Button();
@@ -43,7 +44,6 @@
             cmbMetodePembayaran = new ComboBox();
             txtInputPembayaran = new TextBox();
             lblInput = new Label();
-            button1 = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvKeranjang).BeginInit();
             panel1.SuspendLayout();
@@ -93,6 +93,7 @@
             // 
             // flpKatalog
             // 
+            flpKatalog.AutoScroll = true;
             flpKatalog.BackColor = Color.WhiteSmoke;
             flpKatalog.Location = new Point(306, 83);
             flpKatalog.Name = "flpKatalog";
@@ -136,6 +137,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(300, 1144);
             panel1.TabIndex = 4;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Brown;
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(90, 1073);
+            button1.Name = "button1";
+            button1.Size = new Size(112, 34);
+            button1.TabIndex = 4;
+            button1.Text = "Logout";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // btnHistory
             // 
@@ -211,18 +224,6 @@
             lblInput.Size = new Size(209, 25);
             lblInput.TabIndex = 7;
             lblInput.Text = "\"Jumlah Uang / No. Resi\"";
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.Brown;
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(90, 1073);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 4;
-            button1.Text = "Logout";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
             // 
             // FormTransaksi
             // 

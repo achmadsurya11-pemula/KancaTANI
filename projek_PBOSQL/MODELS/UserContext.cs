@@ -29,7 +29,7 @@ namespace projek_PBOSQL.MODELS
                     {
                         if (reader.Read())
                         {
-                            int idAkun = Convert.ToInt32(reader["id_akun"]);
+                            int idAkunDariDB = Convert.ToInt32(reader["id_akun"]);
                             int id_role = Convert.ToInt32(reader["id_role"]);
                             string uName = reader["username"]?.ToString() ?? "";
                             string pass = reader["password"]?.ToString() ?? "";
@@ -40,14 +40,14 @@ namespace projek_PBOSQL.MODELS
                             // Mengembalikan objek konkrit berdasarkan id_role
                             if (id_role == 1)
                             {
-                                return new Admin(idAkun,pass, uName, roleText);
+                                return new Admin(idAkunDariDB,pass, uName, roleText);
                             }
                             else
                             {
-                                return new Petani(idAkun,pass, uName, roleText);
+                                return new Petani(idAkunDariDB, pass, uName, roleText);
                             }
 
-                            pengguna.id_akun = idAkun;
+                            pengguna.id_akun = idAkunDariDB;
 
                             return pengguna;
                         }
@@ -60,6 +60,34 @@ namespace projek_PBOSQL.MODELS
             }
 
             return null; // Mengembalikan null jika tidak ditemukan di DB
+        }
+
+        public DataTable GetTransaksiByPetani()
+        {
+            int idLog = UserSession.IdAkunAktif;
+            var dt = new DataTable();
+
+            string query = "SELECT waktu, jenis_pupuk, jumlah, total FROM v_historytransaksi WHERE id_akun = @idAkun";
+
+            try
+            {
+                using (var conn = ConnectDB.GetConn())
+                using (var cmd = new NpgsqlCommand(query, conn))
+                {
+                    // Amankan query menggunakan parameter binding
+                    cmd.Parameters.AddWithValue("@idAkun", idLog);
+
+                    using (var adapter = new NpgsqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Gagal memuat history belanja Anda: " + ex.Message);
+            }
+            return dt;
         }
         public DataTable GetAllAkun()
         {

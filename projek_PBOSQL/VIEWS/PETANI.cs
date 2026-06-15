@@ -64,7 +64,9 @@ namespace projek_PBOSQL.VIEWS
 
         private void btnHistory_Click(object sender, EventArgs e)
         {
-
+            projek_PBOSQL.VIEWS.FormHistory his = new projek_PBOSQL.VIEWS.FormHistory();
+            his.Show();
+            this.Hide();
         }
 
         private void btnHitung_Click(object sender, EventArgs e)
