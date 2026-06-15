@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace projek_PBOSQL.MODELS
 {
@@ -14,8 +15,7 @@ namespace projek_PBOSQL.MODELS
 
         public User AmbilDataLogin(string username, string password)
         {
-            string query = "SELECT id_akun, username, password, id_role, nama_role FROM v_login_akun WHERE username = @username AND password = @password";
-
+            string query = "SELECT id_akun, username, password, id_role, nama_role, can_use_petani_mode FROM v_login_akun WHERE username = @username AND password = @password";
             try
             {
                 using (NpgsqlConnection conn = new NpgsqlConnection(connstring))
@@ -34,17 +34,18 @@ namespace projek_PBOSQL.MODELS
                             string uName = reader["username"]?.ToString() ?? "";
                             string pass = reader["password"]?.ToString() ?? "";
                             string roleText = reader["nama_role"]?.ToString() ?? "petani";
+                            bool bisaModePetani = Convert.ToBoolean(reader["can_use_petani_mode"]);
 
                             User pengguna;
 
                             // Mengembalikan objek konkrit berdasarkan id_role
                             if (id_role == 1)
                             {
-                                return new Admin(idAkunDariDB,pass, uName, roleText);
+                                return new Admin(idAkunDariDB,pass, uName, roleText, bisaModePetani);
                             }
                             else
                             {
-                                return new Petani(idAkunDariDB, pass, uName, roleText);
+                                return new Petani(idAkunDariDB, pass, uName, roleText, bisaModePetani);
                             }
 
                             pengguna.id_akun = idAkunDariDB;
@@ -105,9 +106,15 @@ namespace projek_PBOSQL.MODELS
             }
         }
 
-        public bool TambahUser(string username, string password, string noTelp, string idRoleString)
+        public bool TambahUser(string username, string password, string noTelp, string idRoleString, bool canUsePetaniMode)
         {
             bool status = false;
+
+            if (string.IsNullOrWhiteSpace(noTelp) || !noTelp.All(char.IsDigit))
+            {
+                throw new ArgumentException("Nomor telepon hanya boleh berisi angka dan tidak boleh kosong!");
+            }
+
             NpgsqlConnection conn = ConnectDB.GetConn();
 
             try
@@ -117,7 +124,7 @@ namespace projek_PBOSQL.MODELS
                     conn.Open();
                 }
 
-                string query = "INSERT INTO akun (username, password, no_telp, id_role) VALUES (@username, @password, @no_telp, @id_role)";
+                string query = "INSERT INTO akun (username, password, no_telp, id_role, can_use_petani_mode) VALUES (@username, @password, @no_telp, @id_role, @can_mode)";
 
                 NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@username", username);
@@ -126,6 +133,9 @@ namespace projek_PBOSQL.MODELS
 
                 int idRoleInteger = int.Parse(idRoleString);
                 cmd.Parameters.AddWithValue("@id_role", idRoleInteger);
+
+                // 🌟 BIND PARAMETER BOOLEAN BARU
+                cmd.Parameters.AddWithValue("@can_mode", canUsePetaniMode);
 
                 int barisTersimpan = cmd.ExecuteNonQuery();
                 if (barisTersimpan > 0)
@@ -181,36 +191,39 @@ namespace projek_PBOSQL.MODELS
             return status;
         }
 
-        public bool EditUser(int idAkun, string username, string password, string noTelp)
+        public bool EditUser(int idAkun, string username, string noTelp, string password)
         {
             bool status = false;
-            string query = "SELECT sp_edit_akun(@id, @username, @password, @no_telp)";
+
+            if (string.IsNullOrWhiteSpace(noTelp) || !noTelp.All(char.IsDigit))
+            {
+                throw new ArgumentException("Nomor telepon hanya boleh berisi angka dan tidak boleh kosong!");
+            }
+
+            string query = "SELECT sp_edit_akun(@id, @username, @no_telp, @password)";
 
             try
             {
-                NpgsqlConnection conn = ConnectDB.GetConn();
-
-                if (conn.State == System.Data.ConnectionState.Closed)
+                using (NpgsqlConnection conn = ConnectDB.GetConn())
                 {
-                    conn.Open(); 
-                }
-                else if (conn.State == System.Data.ConnectionState.Broken)
-                {
-                    conn.Close();
-                    conn.Open(); 
-                }
+                    if (conn.State == System.Data.ConnectionState.Closed)
+                        conn.Open();
+                    else if (conn.State == System.Data.ConnectionState.Broken)
+                    {
+                        conn.Close();
+                        conn.Open();
+                    }
 
-                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@id", idAkun);
-                    cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters.AddWithValue("@no_telp", noTelp);
-                    cmd.Parameters.AddWithValue("@password", password);
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id", idAkun);
+                        cmd.Parameters.AddWithValue("@username", username);
+                        cmd.Parameters.AddWithValue("@no_telp", noTelp);
+                        cmd.Parameters.AddWithValue("@password", password);
 
-                    // Ambil return BOOLEAN dari fungsi PostgreSQL
-                    status = (bool)cmd.ExecuteScalar();
+                        status = (bool)cmd.ExecuteScalar();
+                    }
                 }
-                conn.Close();
             }
             catch (Exception ex)
             {

@@ -156,11 +156,56 @@ namespace projek_PBOSQL.VIEWS
                     totalBelanjaSaya += item.totalHarga;
                 }
 
+                // =============================================================
+                // 🌟 SEKTOR VALIDASI BARU: txtInputPembayaran (Taruh Di Sini!)
+                // =============================================================
+                string metodePilihan = cmbMetodePembayaran.SelectedItem?.ToString() ?? "Tunai";
+
+                // A. Cek jika input masih kosong melompong
+                if (string.IsNullOrWhiteSpace(inputKasir))
+                {
+                    string pesan = metodePilihan == "Tunai"
+                        ? "Silakan masukkan jumlah uang pembayaran tunai!"
+                        : "Silakan masukkan nomor resi bukti transfer!";
+                    MessageBox.Show(pesan, "Validasi Pembayaran", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtInputPembayaran.Focus();
+                    return;
+                }
+
+                // B. Cek spesifik jika metodenya "Tunai"
+                if (metodePilihan == "Tunai")
+                {
+                    // 1. Harus berupa angka bulat (tidak boleh kemasukan huruf)
+                    if (!int.TryParse(inputKasir, out int jumlahUang))
+                    {
+                        MessageBox.Show("Jumlah uang tunai harus berupa angka bulat bersih (tanpa titik, koma, atau huruf)!", "Format Salah", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtInputPembayaran.Focus();
+                        return;
+                    }
+
+                    // 2. Jumlah uang tidak boleh kurang dari total belanjaan
+                    if (jumlahUang < totalBelanjaSaya)
+                    {
+                        double kurangnya = totalBelanjaSaya - jumlahUang;
+                        MessageBox.Show($"Uang tunai kurang Rp {kurangnya:N0}! Transaksi tidak dapat dilanjutkan.", "Uang Tidak Cukup", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtInputPembayaran.Focus();
+                        return;
+                    }
+                }
+                else // C. Cek spesifik jika metodenya "Transfer"
+                {
+                    // Batasi panjang nomor resi agar tidak merusak kolom database (misal max 50 karakter)
+                    if (inputKasir.Length > 50)
+                    {
+                        MessageBox.Show("Nomor resi transfer terlalu panjang! Maksimal 50 karakter.", "Format Salah", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtInputPembayaran.Focus();
+                        return;
+                    }
+                }
+                // =============================================================
+
                 // Deklarasikan Objek Induk Abstrak
                 CONTROLLERS.MetodePembayaran eksekutor = null;
-
-                // Validasi combo box (Biar aman kalau nggak sengaja kosong)
-                string metodePilihan = cmbMetodePembayaran.SelectedItem?.ToString() ?? "Tunai";
 
                 // Polymorphism
                 if (metodePilihan == "Tunai")
@@ -174,7 +219,7 @@ namespace projek_PBOSQL.VIEWS
 
                 if (eksekutor != null)
                 {
-                    // 🌟 2. PERBAIKAN FATAL: Gunakan variabel 'idAkunSaatIni' di sini!
+                    // Mengirim data aman yang sudah lolos sensor validasi di atas
                     bool sukses = eksekutor.ProsesPembayaran(totalBelanjaSaya, _keranjangBelanja, inputKasir, idAkunSaatIni, idTokoTerpilih);
 
                     if (sukses)

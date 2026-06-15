@@ -41,8 +41,35 @@ namespace projek_PBOSQL
 
                     if (penggunaAktif.Role.ToLower() == "admin")
                     {
-                        ADMIN dashboardAdmin = new ADMIN();
-                        dashboardAdmin.Show();
+                        if (penggunaAktif.CanUsePetaniMode)
+                        {
+                            // Tanyakan ke user via pop-up interaktif
+                            DialogResult pilihan = MessageBox.Show(
+                                "Akun Anda memiliki akses khusus. Apakah Anda ingin masuk ke Mode Petani?",
+                                "Akses Khusus Admin",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question
+                            );
+
+                            if (pilihan == DialogResult.Yes)
+                            {
+                                // Jika pilih YES, arahkan langsung ke form Petani
+                                PETANI dashboardPetani = new PETANI();
+                                dashboardPetani.Show();
+                            }
+                            else
+                            {
+                                // Jika pilih NO, arahkan ke dashboard Admin biasa
+                                ADMIN dashboardAdmin = new ADMIN();
+                                dashboardAdmin.Show();
+                            }
+                        }
+                        else
+                        {
+                            // Admin biasa yang bernilai 'false' (seperti akun surya) langsung ke sini
+                            ADMIN dashboardAdmin = new ADMIN();
+                            dashboardAdmin.Show();
+                        }
                     }
                     else
                     {

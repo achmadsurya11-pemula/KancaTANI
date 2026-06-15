@@ -13,9 +13,9 @@ namespace projek_PBOSQL.CONTROLLERS
     {
         private readonly UserContext _userContext = new UserContext();
 
-        public bool TambahUser(string username, string password, string noTelp, string idRoleString)
+        public bool TambahUser(string username, string password, string noTelp, string idRoleString, bool canUsePetaniMode)
         {
-            return _userContext.TambahUser(username, password, noTelp, idRoleString);
+            return _userContext.TambahUser(username, password, noTelp, idRoleString, canUsePetaniMode);
         }
 
         public DataTable GetAllAkun()

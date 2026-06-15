@@ -35,13 +35,14 @@
             Simpan = new Button();
             RbAdmin = new RadioButton();
             RbPetani = new RadioButton();
+            chkCanUsePetaniMode = new CheckBox();
             SuspendLayout();
             // 
             // txtUsername
             // 
             txtUsername.BackColor = Color.White;
             txtUsername.BorderStyle = BorderStyle.None;
-            txtUsername.Location = new Point(425, 131);
+            txtUsername.Location = new Point(425, 114);
             txtUsername.Margin = new Padding(4);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(190, 24);
@@ -51,7 +52,7 @@
             // 
             txtPassword.BackColor = Color.White;
             txtPassword.BorderStyle = BorderStyle.None;
-            txtPassword.Location = new Point(425, 218);
+            txtPassword.Location = new Point(425, 163);
             txtPassword.Margin = new Padding(4);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(190, 24);
@@ -61,7 +62,7 @@
             // 
             txtNoTelp.BackColor = Color.White;
             txtNoTelp.BorderStyle = BorderStyle.None;
-            txtNoTelp.Location = new Point(425, 302);
+            txtNoTelp.Location = new Point(425, 219);
             txtNoTelp.Margin = new Padding(4);
             txtNoTelp.Name = "txtNoTelp";
             txtNoTelp.Size = new Size(190, 24);
@@ -84,7 +85,7 @@
             // 
             RbAdmin.AutoSize = true;
             RbAdmin.BackColor = Color.Transparent;
-            RbAdmin.Location = new Point(425, 374);
+            RbAdmin.Location = new Point(425, 278);
             RbAdmin.Margin = new Padding(4);
             RbAdmin.Name = "RbAdmin";
             RbAdmin.Size = new Size(90, 29);
@@ -97,7 +98,7 @@
             // 
             RbPetani.AutoSize = true;
             RbPetani.BackColor = Color.Transparent;
-            RbPetani.Location = new Point(571, 374);
+            RbPetani.Location = new Point(571, 278);
             RbPetani.Margin = new Padding(4);
             RbPetani.Name = "RbPetani";
             RbPetani.Size = new Size(84, 29);
@@ -105,13 +106,26 @@
             RbPetani.TabStop = true;
             RbPetani.Text = "Petani";
             RbPetani.UseVisualStyleBackColor = false;
+            RbPetani.CheckedChanged += RbPetani_CheckedChanged;
+            // 
+            // chkCanUsePetaniMode
+            // 
+            chkCanUsePetaniMode.AutoSize = true;
+            chkCanUsePetaniMode.BackColor = Color.Transparent;
+            chkCanUsePetaniMode.Location = new Point(425, 334);
+            chkCanUsePetaniMode.Name = "chkCanUsePetaniMode";
+            chkCanUsePetaniMode.Size = new Size(188, 29);
+            chkCanUsePetaniMode.TabIndex = 6;
+            chkCanUsePetaniMode.Text = "Akses Mode Petani";
+            chkCanUsePetaniMode.UseVisualStyleBackColor = false;
             // 
             // TambahUser
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.Tambah_Akun2;
+            BackgroundImage = Properties.Resources.fix_tambah_akun;
             ClientSize = new Size(777, 502);
+            Controls.Add(chkCanUsePetaniMode);
             Controls.Add(RbPetani);
             Controls.Add(RbAdmin);
             Controls.Add(Simpan);
@@ -135,5 +149,6 @@
         private Button Simpan;
         private RadioButton RbAdmin;
         private RadioButton RbPetani;
+        private CheckBox chkCanUsePetaniMode;
     }
 }

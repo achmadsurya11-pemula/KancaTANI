@@ -212,7 +212,7 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.BackColor = Color.FromArgb(255, 192, 128);
+            btnUpdate.BackColor = Color.Black;
             btnUpdate.Font = new Font("Arial", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnUpdate.ForeColor = SystemColors.ButtonHighlight;
             btnUpdate.Location = new Point(1351, 949);
@@ -226,7 +226,7 @@
             // 
             // btnTambah
             // 
-            btnTambah.BackColor = Color.FromArgb(0, 192, 192);
+            btnTambah.BackColor = Color.Black;
             btnTambah.Font = new Font("Arial", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTambah.ForeColor = SystemColors.ButtonHighlight;
             btnTambah.Location = new Point(1261, 373);

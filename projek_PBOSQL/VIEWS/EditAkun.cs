@@ -56,10 +56,29 @@ namespace projek_PBOSQL.VIEWS
                 return;
             }
 
+
             // Ambil data yang diketik user 
             string usernameBaru = txtEditUsername.Text.Trim();
             string noTelpBaru = txtEditNotelp.Text.Trim();
-            string passwordBaru = txtEditPass.Text.Trim(); 
+            string passwordBaru = txtEditPass.Text.Trim();
+
+            if (usernameBaru.Length > 20)
+            {
+                MessageBox.Show("Username terlalu panjang! Maksimal 20 karakter.", "Peringatan Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (noTelpBaru.Length > 15)
+            {
+                MessageBox.Show("Nomor telepon terlalu panjang! Maksimal 15 karakter.", "Peringatan Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (passwordBaru.Length < 8 || passwordBaru.Length > 15)
+            {
+                MessageBox.Show("Password harus diantara 8 dan 15.", "Peringatan Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             try
             {

@@ -45,6 +45,7 @@
             panel3 = new Panel();
             lblUser = new Label();
             panel2 = new Panel();
+            label1 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -208,23 +209,22 @@
             // 
             // btnTambahAkun
             // 
-            btnTambahAkun.BackColor = Color.Transparent;
-            btnTambahAkun.BackgroundImage = Properties.Resources.btnTambahUser;
-            btnTambahAkun.FlatStyle = FlatStyle.Flat;
-            btnTambahAkun.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnTambahAkun.BackColor = Color.Black;
+            btnTambahAkun.Font = new Font("Helvetica", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTambahAkun.ForeColor = SystemColors.ButtonFace;
             btnTambahAkun.Location = new Point(1276, 96);
             btnTambahAkun.Margin = new Padding(4, 3, 4, 3);
             btnTambahAkun.Name = "btnTambahAkun";
             btnTambahAkun.Size = new Size(212, 47);
             btnTambahAkun.TabIndex = 2;
+            btnTambahAkun.Text = "Tambah Akun";
             btnTambahAkun.UseVisualStyleBackColor = false;
             btnTambahAkun.Click += btnTambahAkun_Click;
             // 
             // panel3
             // 
-            panel3.BackColor = Color.Transparent;
-            panel3.BackgroundImage = Properties.Resources.total_user;
+            panel3.BackColor = Color.Black;
+            panel3.Controls.Add(label1);
             panel3.Controls.Add(lblUser);
             panel3.Location = new Point(74, 888);
             panel3.Margin = new Padding(4, 3, 4, 3);
@@ -256,6 +256,17 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1894, 1140);
             panel2.TabIndex = 9;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Helvetica", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(92, 26);
+            label1.Name = "label1";
+            label1.Size = new Size(138, 29);
+            label1.TabIndex = 5;
+            label1.Text = "Total Akun";
             // 
             // KelolaUser
             // 
@@ -300,5 +311,6 @@
         private Panel panel3;
         private Label lblUser;
         private Panel panel2;
+        private Label label1;
     }
 }
