@@ -29,7 +29,7 @@ namespace projek_PBOSQL.MODELS
                 using (var conn = new NpgsqlConnection(connstring))
                 {
                     conn.Open();
-                    using (var cmd = new NpgsqlCommand("CALL insert_transaksi_kancatani(@p_id_akun, @p_id_toko, @p_id_pupuk, @p_quantity, @p_total_harga)", conn))
+                    using (var cmd = new NpgsqlCommand("CALL insert_transaksi(@p_id_akun, @p_id_toko, @p_id_pupuk, @p_quantity, @p_total_harga)", conn))
                     {
                         cmd.Parameters.AddWithValue("@p_id_akun", id_akun);
                         cmd.Parameters.AddWithValue("@p_id_toko", id_toko);

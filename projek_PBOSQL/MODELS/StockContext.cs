@@ -123,6 +123,53 @@ namespace projek_PBOSQL.MODELS
             return dt;
         }
 
+        public DataTable AmbilDataKatalogUC()
+        {
+            DataTable dt = new DataTable();
+            NpgsqlConnection conn = ConnectDB.GetConn();
+
+            try
+            {
+                if (conn.State == System.Data.ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+
+                // Query khusus yang menarik kolom 'gambar' hanya untuk kebutuhan katalog UC
+                string query = @"SELECT p.id_pupuk, 
+                                    p.nama_pupuk, 
+                                    s.harga_kg, 
+                                    s.stock, 
+                                    p.gambar 
+                                 FROM pupuk p
+                                 JOIN stock_pupuk s USING (id_pupuk)
+                                 WHERE p.status = 'Aktif' 
+                                 ORDER BY p.id_pupuk ASC";
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                {
+                    using (NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd))
+                    {
+                        // Isi DataTable dengan hasil query database
+                        da.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Gagal mengambil data gambar katalog: " + ex.Message);
+            }
+            finally
+            {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+
+            return dt;
+        }
+
         public (double totalStok, int stockRendah) LabelRingkasan()
         {
             double totalStok = 0;

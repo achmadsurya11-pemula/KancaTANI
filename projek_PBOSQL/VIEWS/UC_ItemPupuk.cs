@@ -32,7 +32,7 @@ namespace projek_PBOSQL.VIEWS
             InitializeComponent();
         }
 
-        public void SetDataProduk(int id, string nama, double harga, int stok)
+        public void SetDataProduk(int id, string nama, double harga, int stok, string namaFileGambar)
         {
             id_pupuk = id;
             nama_pupuk = nama;
@@ -41,6 +41,19 @@ namespace projek_PBOSQL.VIEWS
             lblNama.Text = nama;
             lblHarga.Text = "Rp " + harga.ToString("N0") + " /Kg";
             lblStok.Text = "Stok: " + stok + " Kg";
+
+            // Logika load gambar dinamis
+            if (string.IsNullOrEmpty(namaFileGambar)) namaFileGambar = "default.png";
+            string pathGambar = System.IO.Path.Combine(Application.StartupPath, "Images", namaFileGambar);
+
+            if (System.IO.File.Exists(pathGambar))
+            {
+                pgGambar.ImageLocation = pathGambar; // 💡 Sesuaikan 'picFoto' dengan nama PictureBox-mu
+            }
+            else
+            {
+                pgGambar.ImageLocation = System.IO.Path.Combine(Application.StartupPath, "Images", "default.png");
+            }
 
             nudQty.Maximum = stok == 0 ? 1 : stok;
             if (stok == 0)

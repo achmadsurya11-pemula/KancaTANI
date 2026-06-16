@@ -14,6 +14,7 @@ namespace projek_PBOSQL.VIEWS
     {
         private readonly c_Transaksi _transactionController = new c_Transaksi();
         private readonly StockContext _stockContext = new StockContext();
+        private readonly PupukContext _pupukContext = new PupukContext();
 
         //Penyimpanan Keranjang Belanja menggunakan Objek List pada memory
         private List<DetailTransaksi> _keranjangBelanja = new List<DetailTransaksi>();
@@ -49,18 +50,24 @@ namespace projek_PBOSQL.VIEWS
             flpKatalog.Controls.Clear();
             _namaPupukDict.Clear();
 
-            List<Pupuk> daftarPupuk = _stockContext.GetAllStock();
+            System.Data.DataTable dtPupuk = _stockContext.AmbilDataKatalogUC();
 
-            foreach (var pupuk in daftarPupuk)
+            // Loop menggunakan DataRow karena datanya berbentuk DataTable
+            foreach (System.Data.DataRow row in dtPupuk.Rows)
             {
-                int idPupuk = pupuk.id_pupuk;
+                int idPupuk = Convert.ToInt32(row["id_pupuk"]);
+                string namaPupuk = row["nama_pupuk"].ToString();
+                double harga = Convert.ToDouble(row["harga_kg"]); 
+                int stok = Convert.ToInt32(row["stock"]);        
+                string namaGambar = row["gambar"].ToString(); 
 
                 if (!_namaPupukDict.ContainsKey(idPupuk))
-                    _namaPupukDict.Add(idPupuk, pupuk.nama_pupuk);
+                    _namaPupukDict.Add(idPupuk, namaPupuk);
 
                 // Instansiasi objek User Control
                 UC_ItemPupuk cardProduk = new UC_ItemPupuk();
-                cardProduk.SetDataProduk(idPupuk, pupuk.nama_pupuk, pupuk.HargaKg, pupuk.Stock);
+
+                cardProduk.SetDataProduk(idPupuk, namaPupuk, harga, stok, namaGambar);
 
                 cardProduk.OnTambahKlik = (id, nama, harga, qty) =>
                 {

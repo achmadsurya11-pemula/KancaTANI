@@ -12,6 +12,7 @@ namespace projek_PBOSQL.MODELS
         public string status {  get; set; }
         public int Stock { get; set; }
         public double HargaKg { get; set; }
-        
+        public string gambar { get; set; }
+
     }
 }

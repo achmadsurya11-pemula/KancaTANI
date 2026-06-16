@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Npgsql;
+﻿using Npgsql;
 using projek_PBOSQL.HELPERS;
 using projek_PBOSQL.Interface;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Text;
 
 namespace projek_PBOSQL.MODELS
 {
@@ -118,6 +119,8 @@ namespace projek_PBOSQL.MODELS
                 throw new Exception("Gagal mengupdate data via Function: " + ex.Message);
             }
         }
+
+        
 
         public (double totalStok, int totalJenis) LabelRingkasan()
         {
