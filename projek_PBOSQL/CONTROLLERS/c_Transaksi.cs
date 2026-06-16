@@ -21,7 +21,7 @@ namespace projek_PBOSQL.CONTROLLERS
                 throw new Exception("Silakan pilih cabang toko terlebih dahulu!");
             }
 
-            // Jika validasi lolos dilanjutkan ke lapisan model data
+            // dilanjutkan ke lapisan model data
             return _transaksiContext.EksekusiTransaksiProsedur(id_akun, id_toko, daftarBelanja);
         }
     }

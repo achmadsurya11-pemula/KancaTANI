@@ -35,6 +35,7 @@
             lblTotalStock = new Label();
             lblPeringatan = new Label();
             panel2 = new Panel();
+            label1 = new Label();
             txtCariStok = new TextBox();
             btnDashboard = new Button();
             btnKelolaUser = new Button();
@@ -63,7 +64,6 @@
             button14 = new Button();
             button15 = new Button();
             button16 = new Button();
-            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvPupuk).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -82,10 +82,10 @@
             dgvPupuk.BackgroundColor = Color.White;
             dgvPupuk.BorderStyle = BorderStyle.Fixed3D;
             dgvPupuk.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPupuk.Location = new Point(66, 385);
+            dgvPupuk.Location = new Point(65, 373);
             dgvPupuk.Name = "dgvPupuk";
             dgvPupuk.RowHeadersWidth = 62;
-            dgvPupuk.Size = new Size(1470, 458);
+            dgvPupuk.Size = new Size(1474, 458);
             dgvPupuk.TabIndex = 0;
             // 
             // btnTambah
@@ -153,6 +153,18 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1604, 1170);
             panel2.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.FlatStyle = FlatStyle.Flat;
+            label1.Font = new Font("Helvetica", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(967, 42);
+            label1.Name = "label1";
+            label1.Size = new Size(138, 29);
+            label1.TabIndex = 6;
+            label1.Text = "Pencarian:";
             // 
             // txtCariStok
             // 
@@ -509,18 +521,6 @@
             button16.TabIndex = 1;
             button16.Text = "Dashboard";
             button16.UseVisualStyleBackColor = false;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.FlatStyle = FlatStyle.Flat;
-            label1.Font = new Font("Helvetica", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(967, 42);
-            label1.Name = "label1";
-            label1.Size = new Size(138, 29);
-            label1.TabIndex = 6;
-            label1.Text = "Pencarian:";
             // 
             // KelolaStock
             // 

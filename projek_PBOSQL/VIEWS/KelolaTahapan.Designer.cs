@@ -55,24 +55,26 @@
             // panelMainContent
             // 
             panelMainContent.BackColor = Color.White;
+            panelMainContent.BackgroundImage = Properties.Resources.Tahapan;
             panelMainContent.Controls.Add(dgvTahapan);
-            panelMainContent.Location = new Point(309, 0);
+            panelMainContent.Location = new Point(305, 0);
             panelMainContent.Margin = new Padding(4, 5, 4, 5);
             panelMainContent.Name = "panelMainContent";
-            panelMainContent.Size = new Size(1726, 1248);
+            panelMainContent.Size = new Size(1558, 1156);
             panelMainContent.TabIndex = 2;
             panelMainContent.Paint += panelMainContent_Paint;
             // 
             // dgvTahapan
             // 
             dgvTahapan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvTahapan.BackgroundColor = Color.WhiteSmoke;
             dgvTahapan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTahapan.Columns.AddRange(new DataGridViewColumn[] { id_fase, nama_fase, umur_min, umur_max, nama_tanaman });
-            dgvTahapan.Location = new Point(56, 149);
+            dgvTahapan.Location = new Point(25, 170);
             dgvTahapan.Margin = new Padding(4, 5, 4, 5);
             dgvTahapan.Name = "dgvTahapan";
             dgvTahapan.RowHeadersWidth = 51;
-            dgvTahapan.Size = new Size(1278, 525);
+            dgvTahapan.Size = new Size(1498, 702);
             dgvTahapan.TabIndex = 0;
             dgvTahapan.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -121,7 +123,7 @@
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(1, 2, 1, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(300, 1170);
+            panel1.Size = new Size(300, 1144);
             panel1.TabIndex = 11;
             // 
             // pictureBox1
@@ -233,7 +235,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1924, 1170);
+            ClientSize = new Size(1898, 1144);
             Controls.Add(panel1);
             Controls.Add(panelMainContent);
             Icon = (Icon)resources.GetObject("$this.Icon");

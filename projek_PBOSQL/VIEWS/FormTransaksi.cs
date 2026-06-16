@@ -15,7 +15,7 @@ namespace projek_PBOSQL.VIEWS
         private readonly c_Transaksi _transactionController = new c_Transaksi();
         private readonly StockContext _stockContext = new StockContext();
 
-        // Memori Penyimpanan Keranjang Belanja menggunakan Objek List terstruktur
+        //Penyimpanan Keranjang Belanja menggunakan Objek List pada memory
         private List<DetailTransaksi> _keranjangBelanja = new List<DetailTransaksi>();
 
         // Dictionary untuk menyimpan relasi ID Pupuk dan Nama Pupuk untuk visualisasi DataGridView
@@ -32,7 +32,7 @@ namespace projek_PBOSQL.VIEWS
             InitializeComponent();
             LoadKatalogDanToko();
 
-            // Ambil data rekomendasi dari memori RAM analisis, dimasukan langsung ke keranjang belanja
+            // Mengambil data dari analisis untuk dimasukan kedalam keranjang pada transaksi
             _keranjangBelanja = rekomendasiAnalisis;
             RefreshDataGridViewKeranjang();
         }
@@ -49,7 +49,6 @@ namespace projek_PBOSQL.VIEWS
             flpKatalog.Controls.Clear();
             _namaPupukDict.Clear();
 
-            // Mengambil seluruh data pupuk yang ada di database
             List<Pupuk> daftarPupuk = _stockContext.GetAllStock();
 
             foreach (var pupuk in daftarPupuk)
@@ -72,8 +71,8 @@ namespace projek_PBOSQL.VIEWS
         }
         private void TambahKeKeranjangMemori(int idPupuk, double hargaKg, int qty)
         {
-            MessageBox.Show($"Sinyal Masuk! ID: {idPupuk}, Qty: {qty}");
-            // Cek apakah produk tersebut sudah pernah dimasukkan ke keranjang sebelumnya
+            //MessageBox.Show($"Sinyal Masuk! ID: {idPupuk}, Qty: {qty}");
+            // mengecek apakah produk tersebut sudah pernah dimasukkan ke keranjang sebelumnya
             var itemAda = _keranjangBelanja.FirstOrDefault(x => x.id_pupuk == idPupuk);
 
             if (itemAda != null)
@@ -97,7 +96,7 @@ namespace projek_PBOSQL.VIEWS
         }
         private void RefreshDataGridViewKeranjang()
         {
-            // Proyeksi LINQ untuk menampilkan nama teks pupuk di gridview berdasarkan IdPupuk-nya
+            // menampilkan nama teks pupuk di gridview berdasarkan IdPupuk-nya
             dgvKeranjang.DataSource = null;
             dgvKeranjang.DataSource = _keranjangBelanja.Select(x => new
             {
@@ -117,7 +116,7 @@ namespace projek_PBOSQL.VIEWS
 
         private void LoadDataTokoComboBox()
         {
-            // Pengisian ComboBox Toko dari DB (id_toko dan nama_toko)
+            // Pengisian ComboBox Toko dari DB
             Dictionary<int, string> comboSource = new Dictionary<int, string>
             {
                 { 1, "KancaTani Cabang Pusat" },
@@ -149,30 +148,27 @@ namespace projek_PBOSQL.VIEWS
                 int idTokoTerpilih = Convert.ToInt32(cmbToko.SelectedValue);
                 string inputKasir = txtInputPembayaran.Text.Trim();
 
-                // Hitung total belanjaan
+                // Perhitungan total belanja
                 double totalBelanjaSaya = 0;
                 foreach (var item in _keranjangBelanja)
                 {
                     totalBelanjaSaya += item.totalHarga;
                 }
 
-                // =============================================================
-                // 🌟 SEKTOR VALIDASI BARU: txtInputPembayaran (Taruh Di Sini!)
-                // =============================================================
                 string metodePilihan = cmbMetodePembayaran.SelectedItem?.ToString() ?? "Tunai";
 
-                // A. Cek jika input masih kosong melompong
+                // Validasi Input Kosong
                 if (string.IsNullOrWhiteSpace(inputKasir))
                 {
                     string pesan = metodePilihan == "Tunai"
                         ? "Silakan masukkan jumlah uang pembayaran tunai!"
-                        : "Silakan masukkan nomor resi bukti transfer!";
+                        : "Silakan masukkan jumlah sesuai dengan total dengan pas!";
                     MessageBox.Show(pesan, "Validasi Pembayaran", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtInputPembayaran.Focus();
                     return;
                 }
 
-                // B. Cek spesifik jika metodenya "Tunai"
+                // Validasi Input Tunai
                 if (metodePilihan == "Tunai")
                 {
                     // 1. Harus berupa angka bulat (tidak boleh kemasukan huruf)
@@ -192,7 +188,7 @@ namespace projek_PBOSQL.VIEWS
                         return;
                     }
                 }
-                else // C. Cek spesifik jika metodenya "Transfer"
+                else // Validasi transfer
                 {
                     // Batasi panjang nomor resi agar tidak merusak kolom database (misal max 50 karakter)
                     if (inputKasir.Length > 50)
@@ -202,7 +198,6 @@ namespace projek_PBOSQL.VIEWS
                         return;
                     }
                 }
-                // =============================================================
 
                 // Deklarasikan Objek Induk Abstrak
                 CONTROLLERS.MetodePembayaran eksekutor = null;
@@ -219,7 +214,6 @@ namespace projek_PBOSQL.VIEWS
 
                 if (eksekutor != null)
                 {
-                    // Mengirim data aman yang sudah lolos sensor validasi di atas
                     bool sukses = eksekutor.ProsesPembayaran(totalBelanjaSaya, _keranjangBelanja, inputKasir, idAkunSaatIni, idTokoTerpilih);
 
                     if (sukses)

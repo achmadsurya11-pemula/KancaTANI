@@ -38,7 +38,7 @@ namespace projek_PBOSQL.MODELS
 
                             User pengguna;
 
-                            // Mengembalikan objek konkrit berdasarkan id_role
+                            // mengembalikan objek berdasarkan id_role
                             if (id_role == 1)
                             {
                                 return new Admin(idAkunDariDB,pass, uName, roleText, bisaModePetani);
@@ -60,7 +60,7 @@ namespace projek_PBOSQL.MODELS
                 throw new Exception("Database Error (AmbilDataLogin): " + ex.Message);
             }
 
-            return null; // Mengembalikan null jika tidak ditemukan di DB
+            return null; 
         }
 
         public DataTable GetTransaksiByPetani()
@@ -75,7 +75,7 @@ namespace projek_PBOSQL.MODELS
                 using (var conn = ConnectDB.GetConn())
                 using (var cmd = new NpgsqlCommand(query, conn))
                 {
-                    // Amankan query menggunakan parameter binding
+                    // menggunakan parameter binding
                     cmd.Parameters.AddWithValue("@idAkun", idLog);
 
                     using (var adapter = new NpgsqlDataAdapter(cmd))
@@ -134,7 +134,6 @@ namespace projek_PBOSQL.MODELS
                 int idRoleInteger = int.Parse(idRoleString);
                 cmd.Parameters.AddWithValue("@id_role", idRoleInteger);
 
-                // 🌟 BIND PARAMETER BOOLEAN BARU
                 cmd.Parameters.AddWithValue("@can_mode", canUsePetaniMode);
 
                 int barisTersimpan = cmd.ExecuteNonQuery();

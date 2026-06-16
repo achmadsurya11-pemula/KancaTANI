@@ -21,8 +21,6 @@ namespace projek_PBOSQL.MODELS
             {
                 arrIdPupuk[i] = keranjang[i].id_pupuk;
                 arrQty[i] = keranjang[i].quantity;
-
-                // Konversi nilai totalHarga dari double ke decimal
                 arrTotal[i] = Convert.ToDecimal(keranjang[i].totalHarga);
             }
 

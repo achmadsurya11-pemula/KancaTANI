@@ -54,7 +54,7 @@ namespace projek_PBOSQL.MODELS
                 using (var conn = ConnectDB.GetConn())
                 using (var cmd = new NpgsqlCommand(query, conn))
                 {
-                    // Menambahkan wildcard % agar pencarian bersifat fleksibel (mengandung kata tersebut)
+                    // menambahkan % agar pencarian bersifat fleksibel (mengandung kata tersebut)
                     cmd.Parameters.AddWithValue("@keyword", "%" + kataKunci + "%");
 
                     using (var reader = cmd.ExecuteReader())

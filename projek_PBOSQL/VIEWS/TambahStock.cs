@@ -23,10 +23,10 @@ namespace projek_PBOSQL.VIEWS
         {
             try
             {
-                var daftarPupuk = _pupukController.GetAllPupuk(false); // Ambil yang aktif saja
+                var daftarPupuk = _pupukController.GetAllPupuk(false); // Mengambil yang aktif
                 cbPupuk.DataSource = daftarPupuk;
-                cbPupuk.DisplayMember = "nama_pupuk"; // Yang tampil di layar teksnya
-                cbPupuk.ValueMember = "id_pupuk";     // Nilai ID di balik teks tersebut
+                cbPupuk.DisplayMember = "nama_pupuk"; // tampil di layar
+                cbPupuk.ValueMember = "id_pupuk";     // nilai id_pupuk dari nama pupuk
 
                 var daftarSupplier = _stockController.GetStaticSuppliers();
                 cbSupplier.DataSource = daftarSupplier;
@@ -48,7 +48,7 @@ namespace projek_PBOSQL.VIEWS
                 return;
             }
 
-            // Konversi tipe data dari teks ke angka secara aman
+            // Konversi tipe data dari teks ke angka 
             if (!int.TryParse(txtJumlah.Text, out int jumlahKg) || !double.TryParse(txtHarga.Text, out double hargaBeli))
             {
                 MessageBox.Show("Jumlah KG dan Harga Beli harus berupa angka valid!", "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -57,11 +57,10 @@ namespace projek_PBOSQL.VIEWS
 
             try
             {
-                // Ambil ID dari ComboBox yang dipilih user
                 int idPupukSelected = Convert.ToInt32(cbPupuk.SelectedValue);
                 int idSupplierSelected = Convert.ToInt32(cbSupplier.SelectedValue);
 
-                // Eksekusi pengadaan stok via controller
+                // Eksekusi pengadaan stok 
                 bool sukses = _stockController.TambahPengadaan(jumlahKg, hargaBeli, idPupukSelected, idSupplierSelected);
 
                 if (sukses)
@@ -75,7 +74,6 @@ namespace projek_PBOSQL.VIEWS
             {
                 MessageBox.Show(ex.Message, "Gagal Menyimpan", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void btnBatal_Click(object sender, EventArgs e)

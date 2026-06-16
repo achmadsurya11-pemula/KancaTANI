@@ -40,6 +40,30 @@ namespace projek_PBOSQL.VIEWS
                 MessageBox.Show("Semua kolom input wajib diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtNamaPupuk.Text, @"^[a-zA-Z0-9\s]+$"))
+            {
+                MessageBox.Show("Nama pupuk hanya boleh berisi huruf, angka, dan spasi! Tidak boleh mengandung simbol.", "Peringatan Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNamaPupuk.Focus();
+                return;
+            }
+            if (txtNamaPupuk.Text.Length > 50)
+            {
+                MessageBox.Show("Nama pupuk terlalu panjang! Maksimal 50 karakter.", "Peringatan Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNamaPupuk.Focus();
+                return;
+            }
+            if (!int.TryParse(txtHarga.Text, out int hargaPupuk))
+            {
+                MessageBox.Show("Harga harus berupa angka bulat bersih tanpa titik, koma, atau simbol!", "Peringatan Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtHarga.Focus();
+                return;
+            }
+            if (hargaPupuk <= 0)
+            {
+                MessageBox.Show("Harga pupuk harus lebih besar dari Rp 0!", "Peringatan Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtHarga.Focus();
+                return;
+            }
 
             if (!double.TryParse(txtHarga.Text, out double hargaKonversi))
             {
@@ -64,7 +88,7 @@ namespace projek_PBOSQL.VIEWS
                 if (sukses)
                 {
                     MessageBox.Show("Data berhasil disimpan dan status kembali Aktif!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK; // Memberi tahu Form Utama bahwa aksi sukses
+                    this.DialogResult = DialogResult.OK; 
                     this.Close();
                 }
             }

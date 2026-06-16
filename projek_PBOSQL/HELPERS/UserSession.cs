@@ -6,10 +6,9 @@ namespace projek_PBOSQL
 {
     public static class UserSession
     {
-        // Menyimpan ID Akun yang sedang aktif login
+        // Menyimpan id_akun yang sedang aktif login
         public static int IdAkunAktif { get; set; }
 
-        // Menyimpan Nama Pengguna yang sedang aktif login
         public static string NamaAktif { get; set; }
     }
 }

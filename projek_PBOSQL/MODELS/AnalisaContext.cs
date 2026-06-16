@@ -36,7 +36,6 @@ namespace projek_PBOSQL.MODELS
             }
             return list;
         }
-
         public DataTable GetRekomendasiTabel(int idTanaman, double luas, string fase)
         {
             var dt = new DataTable();

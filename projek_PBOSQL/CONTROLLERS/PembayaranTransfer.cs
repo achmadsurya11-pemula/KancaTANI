@@ -14,23 +14,20 @@ namespace projek_PBOSQL.CONTROLLERS
             // 1. Validasi nomor resi transfer
             if (string.IsNullOrWhiteSpace(inputTambahan) || inputTambahan.Length < 5)
             {
-                MessageBox.Show("Pembayaran Gagal! Masukkan Nomor Resi Transfer yang valid.", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Pembayaran Gagal! Masukkan Nominal yang sesuai!.", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
             try
             {
-                // 🔥 KUNCI UTAMA: Memanggil method asli database milikmu di sini
                 bool apakahSuksesDatabase = _transaksiController.ValidasiDanSimpan(idAkun, idToko, keranjang);
 
                 if (apakahSuksesDatabase)
                 {
-                    // Tampilkan nota resi jika database berhasil disimpan
                     VIEWS.FormResi nota = new VIEWS.FormResi(totalHarga, 0, "Transfer", inputTambahan, keranjang);
                     nota.ShowDialog();
                     return true;
                 }
-
                 return false;
             }
             catch (Exception ex)

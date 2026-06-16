@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
-using Npgsql;
-using projek_PBOSQL.HELPERS;
 
 namespace projek_PBOSQL.MODELS
 {

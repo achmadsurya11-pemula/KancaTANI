@@ -110,15 +110,13 @@ namespace projek_PBOSQL.VIEWS
                     popUp.txtEditNotelp.Text = noTelpTerpilih;
                     popUp.txtEditPass.Text = ""; 
 
-                    // 3. Munculkan pop-up di tengah layar
                     if (popUp.ShowDialog() == DialogResult.OK)
                     {
-                        // Jika tombol simpan di pop-up berhasil diklik, otomatis refresh tabel utama
+                        //  refresh tabel utama
                         TampilkanDataUser();
                     }
                 }
             }
-
         }
 
         private void btnTambahAkun_Click(object sender, EventArgs e)

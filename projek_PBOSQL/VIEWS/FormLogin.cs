@@ -32,10 +32,8 @@ namespace projek_PBOSQL
 
                 if (penggunaAktif != null)
                 {
-                    // 🌟 TONGKAT ESTAFET DIAWALI DI SINI!
-                    // Set nilai static session global berdasarkan object user yang berhasil login
-                    UserSession.IdAkunAktif = penggunaAktif.id_akun;       // Pastikan nama properti ID di class User-mu sesuai (misal: Id atau IdAkun)
-                    UserSession.NamaAktif = penggunaAktif.Username;   // Menyimpan nama untuk keperluan display/history
+                    UserSession.IdAkunAktif = penggunaAktif.id_akun;       
+                    UserSession.NamaAktif = penggunaAktif.Username;   // Menyimpan nama 
 
                     MessageBox.Show($"Selamat datang kembali, {penggunaAktif.Username}!", "Login Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -43,7 +41,6 @@ namespace projek_PBOSQL
                     {
                         if (penggunaAktif.CanUsePetaniMode)
                         {
-                            // Tanyakan ke user via pop-up interaktif
                             DialogResult pilihan = MessageBox.Show(
                                 "Akun Anda memiliki akses khusus. Apakah Anda ingin masuk ke Mode Petani?",
                                 "Akses Khusus Admin",
@@ -53,20 +50,18 @@ namespace projek_PBOSQL
 
                             if (pilihan == DialogResult.Yes)
                             {
-                                // Jika pilih YES, arahkan langsung ke form Petani
                                 PETANI dashboardPetani = new PETANI();
                                 dashboardPetani.Show();
                             }
                             else
                             {
-                                // Jika pilih NO, arahkan ke dashboard Admin biasa
                                 ADMIN dashboardAdmin = new ADMIN();
                                 dashboardAdmin.Show();
                             }
                         }
                         else
                         {
-                            // Admin biasa yang bernilai 'false' (seperti akun surya) langsung ke sini
+                            // Admin biasa 
                             ADMIN dashboardAdmin = new ADMIN();
                             dashboardAdmin.Show();
                         }

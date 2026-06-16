@@ -26,7 +26,7 @@ namespace projek_PBOSQL.VIEWS
                 DataTable dtRestock = _stockcontext.GetDetailRestockDataTable();
                 dgvDetail.DataSource = dtRestock;
 
-                // Mengatur nama header kolom berdasarkan nama kolom SQL di VIEW
+                //  nama header kolom berdasarkan nama kolom SQL
                 if (dgvDetail.Columns.Count > 0)
                 {
                     dgvDetail.Columns["created"].HeaderText = "Tanggal Restock";

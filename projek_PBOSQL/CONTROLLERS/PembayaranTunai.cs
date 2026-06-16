@@ -20,12 +20,11 @@ namespace projek_PBOSQL.CONTROLLERS
 
             try
             {
-                // 🔥 KUNCI UTAMA: Memanggil method asli database milikmu di sini
                 bool apakahSuksesDatabase = _transaksiController.ValidasiDanSimpan(idAkun, idToko, keranjang);
 
                 if (apakahSuksesDatabase)
                 {
-                    // Tampilkan nota resi jika database berhasil disimpan
+                    // menampilkan nota resi dan transaksi berhasil disimpan
                     VIEWS.FormResi nota = new VIEWS.FormResi(totalHarga, uangDibayar, "Tunai", "", keranjang);
                     nota.ShowDialog();
                     return true;

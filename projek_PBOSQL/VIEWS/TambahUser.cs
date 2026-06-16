@@ -49,7 +49,7 @@ namespace projek_PBOSQL.VIEWS
                 return;
             }
 
-            // Mencegah error VARCHAR(15) di kolom no_telp PostgreSQL
+            // Validasi Input No telp
             if (noTelpInput.Length > 15)
             {
                 MessageBox.Show("Nomor telepon terlalu panjang! Maksimal 15 karakter.", "Peringatan Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
