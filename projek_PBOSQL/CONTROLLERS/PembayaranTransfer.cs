@@ -11,7 +11,7 @@ namespace projek_PBOSQL.CONTROLLERS
 
         public override bool ProsesPembayaran(double totalHarga, List<DetailTransaksi> keranjang, string inputTambahan, int idAkun, int idToko)
         {
-            // 1. Validasi nomor resi transfer
+            // Validasi nomor resi transfer
             if (string.IsNullOrWhiteSpace(inputTambahan) || inputTambahan.Length < 5)
             {
                 MessageBox.Show("Pembayaran Gagal! Masukkan Nominal yang sesuai!.", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);

@@ -35,8 +35,8 @@ namespace projek_PBOSQL.VIEWS
             }
             else
             {
-                lblBayar.Text = "RESI TRANSFER: " + resi;
-                lblKembalian.Text = "STATUS       : LUNAS";
+                lblBayar.Text = " ";
+                lblKembalian.Text ="STATUS       : \nPesanan sesuai dapat dilakukan pengambilan Pupuk!";
             }
         }
 

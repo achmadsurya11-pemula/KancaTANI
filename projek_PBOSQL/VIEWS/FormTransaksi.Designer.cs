@@ -221,9 +221,9 @@
             lblInput.AutoSize = true;
             lblInput.Location = new Point(1337, 797);
             lblInput.Name = "lblInput";
-            lblInput.Size = new Size(209, 25);
+            lblInput.Size = new Size(119, 25);
             lblInput.TabIndex = 7;
-            lblInput.Text = "\"Jumlah Uang / No. Resi\"";
+            lblInput.Text = "Jumlah Uang ";
             // 
             // FormTransaksi
             // 

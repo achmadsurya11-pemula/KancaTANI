@@ -73,7 +73,7 @@
             // 
             lblBayar.AutoSize = true;
             lblBayar.BackColor = Color.Transparent;
-            lblBayar.Location = new Point(22, 684);
+            lblBayar.Location = new Point(22, 663);
             lblBayar.Name = "lblBayar";
             lblBayar.Size = new Size(56, 25);
             lblBayar.TabIndex = 3;
@@ -83,7 +83,7 @@
             // 
             lblKembalian.AutoSize = true;
             lblKembalian.BackColor = Color.Transparent;
-            lblKembalian.Location = new Point(22, 731);
+            lblKembalian.Location = new Point(22, 688);
             lblKembalian.Name = "lblKembalian";
             lblKembalian.Size = new Size(93, 25);
             lblKembalian.TabIndex = 4;

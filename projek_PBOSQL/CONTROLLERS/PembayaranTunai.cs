@@ -11,7 +11,7 @@ namespace projek_PBOSQL.CONTROLLERS
 
         public override bool ProsesPembayaran(double totalHarga, List<DetailTransaksi> keranjang, string inputTambahan, int idAkun, int idToko)
         {
-            // 1. Validasi nominal uang tunai
+            //  Validasi nominal uang tunai
             if (!double.TryParse(inputTambahan, out double uangDibayar) || uangDibayar < totalHarga)
             {
                 MessageBox.Show("Pembayaran Gagal! Uang tunai kurang atau format salah.", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);

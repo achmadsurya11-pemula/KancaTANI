@@ -41,6 +41,7 @@ namespace projek_PBOSQL.VIEWS
                     // Menyembunyikan kolom ID atau status 
                     if (dgvPupuk.Columns["id_pupuk"] != null) dgvPupuk.Columns["id_pupuk"].Visible = false;
                     if (dgvPupuk.Columns["status"] != null) dgvPupuk.Columns["status"].Visible = false;
+                    if (dgvPupuk.Columns["gambar"] != null) dgvPupuk.Columns["gambar"].Visible = false;
                 }
             }
             catch (Exception ex)

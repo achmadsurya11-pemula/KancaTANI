@@ -197,12 +197,18 @@ namespace projek_PBOSQL.VIEWS
                 }
                 else // Validasi transfer
                 {
-                    // Batasi panjang nomor resi agar tidak merusak kolom database (misal max 50 karakter)
-                    if (inputKasir.Length > 50)
+                    if (!double.TryParse(inputKasir, out double nominalTransfer))
                     {
-                        MessageBox.Show("Nomor resi transfer terlalu panjang! Maksimal 50 karakter.", "Format Salah", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        txtInputPembayaran.Focus();
+                        MessageBox.Show("Nominal Transfer harus berupa angka!", "Format Salah", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
+                    }
+
+                    // 2. Sekarang bandingkan nominalTransfer (double) dengan totalBelanjaSaya (double)
+                    if (nominalTransfer != totalBelanjaSaya)
+                    {
+                        MessageBox.Show("Nominal Transfer harus sesuai dengan Total Belanja (Rp " + totalBelanjaSaya.ToString("N0") + ")",
+                                        "Input Salah", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; // Hentikan proses agar tidak lanjut ke transaksi
                     }
                 }
 
