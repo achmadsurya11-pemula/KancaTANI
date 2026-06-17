@@ -49,7 +49,6 @@ namespace projek_PBOSQL.VIEWS
                 return;
             }
 
-            // Validasi Input No telp
             if (noTelpInput.Length > 15)
             {
                 MessageBox.Show("Nomor telepon terlalu panjang! Maksimal 15 karakter.", "Peringatan Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);

@@ -16,10 +16,9 @@ namespace projek_PBOSQL.VIEWS
         private readonly StockContext _stockContext = new StockContext();
         private readonly PupukContext _pupukContext = new PupukContext();
 
-        //Penyimpanan Keranjang Belanja menggunakan Objek List pada memory
+        
         private List<DetailTransaksi> _keranjangBelanja = new List<DetailTransaksi>();
 
-        // Dictionary untuk menyimpan relasi ID Pupuk dan Nama Pupuk untuk visualisasi DataGridView
         private Dictionary<int, string> _namaPupukDict = new Dictionary<int, string>();
 
         public FormTransaksi()
@@ -33,7 +32,6 @@ namespace projek_PBOSQL.VIEWS
             InitializeComponent();
             LoadKatalogDanToko();
 
-            // Mengambil data dari analisis untuk dimasukan kedalam keranjang pada transaksi
             _keranjangBelanja = rekomendasiAnalisis;
             RefreshDataGridViewKeranjang();
         }
@@ -44,7 +42,6 @@ namespace projek_PBOSQL.VIEWS
             LoadDataTokoComboBox();
         }
 
-        // Memuat dari User Control ke dalam FlowLayoutPanel
         private void LoadKatalogProdukUC()
         {
             flpKatalog.Controls.Clear();
@@ -52,7 +49,6 @@ namespace projek_PBOSQL.VIEWS
 
             System.Data.DataTable dtPupuk = _stockContext.AmbilDataKatalogUC();
 
-            // Loop menggunakan DataRow karena datanya berbentuk DataTable
             foreach (System.Data.DataRow row in dtPupuk.Rows)
             {
                 int idPupuk = Convert.ToInt32(row["id_pupuk"]);
@@ -64,7 +60,6 @@ namespace projek_PBOSQL.VIEWS
                 if (!_namaPupukDict.ContainsKey(idPupuk))
                     _namaPupukDict.Add(idPupuk, namaPupuk);
 
-                // Instansiasi objek User Control
                 UC_ItemPupuk cardProduk = new UC_ItemPupuk();
 
                 cardProduk.SetDataProduk(idPupuk, namaPupuk, harga, stok, namaGambar);
@@ -78,19 +73,15 @@ namespace projek_PBOSQL.VIEWS
         }
         private void TambahKeKeranjangMemori(int idPupuk, double hargaKg, int qty)
         {
-            //MessageBox.Show($"Sinyal Masuk! ID: {idPupuk}, Qty: {qty}");
-            // mengecek apakah produk tersebut sudah pernah dimasukkan ke keranjang sebelumnya
             var itemAda = _keranjangBelanja.FirstOrDefault(x => x.id_pupuk == idPupuk);
 
             if (itemAda != null)
             {
-                // Jika pupuk sudah ditambahkan lanjutkan denggan + quantity
                 itemAda.quantity += qty;
                 itemAda.totalHarga = itemAda.quantity * hargaKg;
             }
             else
             {
-                // Jika belum ada, buat baris objek DetailTransaksi baru
                 DetailTransaksi detailBaru = new DetailTransaksi
                 {
                     id_pupuk = idPupuk,
@@ -103,7 +94,6 @@ namespace projek_PBOSQL.VIEWS
         }
         private void RefreshDataGridViewKeranjang()
         {
-            // menampilkan nama teks pupuk di gridview berdasarkan IdPupuk-nya
             dgvKeranjang.DataSource = null;
             dgvKeranjang.DataSource = _keranjangBelanja.Select(x => new
             {
@@ -123,7 +113,6 @@ namespace projek_PBOSQL.VIEWS
 
         private void LoadDataTokoComboBox()
         {
-            // Pengisian ComboBox Toko dari DB
             Dictionary<int, string> comboSource = new Dictionary<int, string>
             {
                 { 1, "KancaTani Cabang Pusat" },
@@ -137,7 +126,6 @@ namespace projek_PBOSQL.VIEWS
         {
             int idAkunSaatIni = UserSession.IdAkunAktif;
 
-            // Cek darurat: kalau ID-nya 0
             if (idAkunSaatIni == 0)
             {
                 MessageBox.Show("Error: ID Sesi Pengguna tidak terbaca (Bernilai 0). Periksa Controller Login Anda!", "Error Internal", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -155,7 +143,6 @@ namespace projek_PBOSQL.VIEWS
                 int idTokoTerpilih = Convert.ToInt32(cmbToko.SelectedValue);
                 string inputKasir = txtInputPembayaran.Text.Trim();
 
-                // Perhitungan total belanja
                 double totalBelanjaSaya = 0;
                 foreach (var item in _keranjangBelanja)
                 {
@@ -164,7 +151,6 @@ namespace projek_PBOSQL.VIEWS
 
                 string metodePilihan = cmbMetodePembayaran.SelectedItem?.ToString() ?? "Tunai";
 
-                // Validasi Input Kosong
                 if (string.IsNullOrWhiteSpace(inputKasir))
                 {
                     string pesan = metodePilihan == "Tunai"
@@ -175,10 +161,8 @@ namespace projek_PBOSQL.VIEWS
                     return;
                 }
 
-                // Validasi Input Tunai
                 if (metodePilihan == "Tunai")
                 {
-                    // 1. Harus berupa angka bulat (tidak boleh kemasukan huruf)
                     if (!int.TryParse(inputKasir, out int jumlahUang))
                     {
                         MessageBox.Show("Jumlah uang tunai harus berupa angka bulat bersih (tanpa titik, koma, atau huruf)!", "Format Salah", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -186,7 +170,6 @@ namespace projek_PBOSQL.VIEWS
                         return;
                     }
 
-                    // 2. Jumlah uang tidak boleh kurang dari total belanjaan
                     if (jumlahUang < totalBelanjaSaya)
                     {
                         double kurangnya = totalBelanjaSaya - jumlahUang;
@@ -195,7 +178,7 @@ namespace projek_PBOSQL.VIEWS
                         return;
                     }
                 }
-                else // Validasi transfer
+                else 
                 {
                     if (!double.TryParse(inputKasir, out double nominalTransfer))
                     {
@@ -203,7 +186,6 @@ namespace projek_PBOSQL.VIEWS
                         return;
                     }
 
-                    // 2. Sekarang bandingkan nominalTransfer (double) dengan totalBelanjaSaya (double)
                     if (nominalTransfer != totalBelanjaSaya)
                     {
                         MessageBox.Show("Nominal Transfer harus sesuai dengan Total Belanja (Rp " + totalBelanjaSaya.ToString("N0") + ")",
@@ -212,10 +194,8 @@ namespace projek_PBOSQL.VIEWS
                     }
                 }
 
-                // Deklarasikan Objek Induk Abstrak
                 CONTROLLERS.MetodePembayaran eksekutor = null;
 
-                // Polymorphism
                 if (metodePilihan == "Tunai")
                 {
                     eksekutor = new CONTROLLERS.PembayaranTunai();

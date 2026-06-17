@@ -19,7 +19,7 @@ namespace projek_PBOSQL
             string inputUser = txtUsername.Text.Trim();
             string inputPass = txtPassword.Text.Trim();
 
-            // Validasi input dasar 
+             
             if (string.IsNullOrEmpty(inputUser) || string.IsNullOrEmpty(inputPass))
             {
                 MessageBox.Show("Username dan Password tidak boleh kosong!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -32,8 +32,8 @@ namespace projek_PBOSQL
 
                 if (penggunaAktif != null)
                 {
-                    UserSession.IdAkunAktif = penggunaAktif.id_akun;       
-                    UserSession.NamaAktif = penggunaAktif.Username;   // Menyimpan nama 
+                    UserSession.IdAkunAktif = penggunaAktif.IDAkun;       
+                    UserSession.NamaAktif = penggunaAktif.Username;   
 
                     MessageBox.Show($"Selamat datang kembali, {penggunaAktif.Username}!", "Login Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

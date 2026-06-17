@@ -38,7 +38,6 @@ namespace projek_PBOSQL.VIEWS
                     dgvPupuk.Columns["Stock"].HeaderText = "Stok (Kg)";
                     dgvPupuk.Columns["HargaKg"].HeaderText = "Harga Per Kg";
 
-                    // Menyembunyikan kolom ID atau status 
                     if (dgvPupuk.Columns["id_pupuk"] != null) dgvPupuk.Columns["id_pupuk"].Visible = false;
                     if (dgvPupuk.Columns["status"] != null) dgvPupuk.Columns["status"].Visible = false;
                     if (dgvPupuk.Columns["gambar"] != null) dgvPupuk.Columns["gambar"].Visible = false;

@@ -88,7 +88,6 @@ namespace projek_PBOSQL.VIEWS
 
                 if (tabelHasil != null && tabelHasil.Rows.Count > 0)
                 {
-                    // Pasang ke DataGridView
                     dgvRekomendasi.DataSource = tabelHasil;
                     dgvRekomendasi.Columns["id_pupuk"].Visible = false;
 

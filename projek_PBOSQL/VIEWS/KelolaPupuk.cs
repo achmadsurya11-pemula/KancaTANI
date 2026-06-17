@@ -41,7 +41,6 @@ namespace projek_PBOSQL.VIEWS
                 }
                 else
                 {
-                    // Kembalikan ke warna default (Hitam) jika statusnya Aktif
                     row.DefaultCellStyle.ForeColor = dgvPupuk.ForeColor;
                 }
             }
@@ -116,7 +115,6 @@ namespace projek_PBOSQL.VIEWS
 
                 if (formPopUpEdit.ShowDialog() == DialogResult.OK)
                 {
-                    // Refresh DataGridView agar baris abu-abu langsung kembali berwarna hitam (Aktif)
                     TampilkanDataPupuk();
                 }
             }

@@ -23,10 +23,10 @@ namespace projek_PBOSQL.VIEWS
         {
             try
             {
-                var daftarPupuk = _pupukController.GetAllPupuk(false); // Mengambil yang aktif
+                var daftarPupuk = _pupukController.GetAllPupuk(false); 
                 cbPupuk.DataSource = daftarPupuk;
-                cbPupuk.DisplayMember = "nama_pupuk"; // tampil di layar
-                cbPupuk.ValueMember = "id_pupuk";     // nilai id_pupuk dari nama pupuk
+                cbPupuk.DisplayMember = "nama_pupuk"; 
+                cbPupuk.ValueMember = "id_pupuk";     
 
                 var daftarSupplier = _stockController.GetStaticSuppliers();
                 cbSupplier.DataSource = daftarSupplier;
@@ -48,7 +48,6 @@ namespace projek_PBOSQL.VIEWS
                 return;
             }
 
-            // Konversi tipe data dari teks ke angka 
             if (!int.TryParse(txtJumlah.Text, out int jumlahKg) || !double.TryParse(txtHarga.Text, out double hargaBeli))
             {
                 MessageBox.Show("Jumlah KG dan Harga Beli harus berupa angka valid!", "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -60,7 +59,6 @@ namespace projek_PBOSQL.VIEWS
                 int idPupukSelected = Convert.ToInt32(cbPupuk.SelectedValue);
                 int idSupplierSelected = Convert.ToInt32(cbSupplier.SelectedValue);
 
-                // Eksekusi pengadaan stok 
                 bool sukses = _stockController.TambahPengadaan(jumlahKg, hargaBeli, idPupukSelected, idSupplierSelected);
 
                 if (sukses)

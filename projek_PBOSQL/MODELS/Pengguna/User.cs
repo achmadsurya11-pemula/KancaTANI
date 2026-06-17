@@ -18,7 +18,7 @@ namespace projek_PBOSQL.MODELS.Pengguna
         public int IDAkun { get => id_akun; set => id_akun = value; }
         public bool CanUsePetaniMode { get => _CanUsePetaniMode; set => _CanUsePetaniMode = value; }
 
-        protected User(int Id_akun, string Pass, string Username, string Role, bool canUsePetaniMode)
+        public User(int Id_akun, string Pass, string Username, string Role, bool canUsePetaniMode)
         {
             id_akun = Id_akun;
             password = Pass;

@@ -150,7 +150,6 @@ namespace projek_PBOSQL.MODELS
                 {
                     using (NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd))
                     {
-                        // Isi DataTable dengan hasil query database
                         da.Fill(dt);
                     }
                 }

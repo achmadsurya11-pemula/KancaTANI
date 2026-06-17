@@ -92,7 +92,7 @@ namespace projek_PBOSQL.VIEWS
                             if (isHapusBerhasil)
                             {
                                 MessageBox.Show($"Akun '{usernameTerpilih}' berhasil dihapus!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                TampilkanDataUser(); // Refresh tabel
+                                TampilkanDataUser(); 
                             }
                         }
                         catch (Exception ex)
@@ -112,7 +112,6 @@ namespace projek_PBOSQL.VIEWS
 
                     if (popUp.ShowDialog() == DialogResult.OK)
                     {
-                        //  refresh tabel utama
                         TampilkanDataUser();
                     }
                 }

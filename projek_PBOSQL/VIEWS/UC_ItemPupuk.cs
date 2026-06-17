@@ -11,7 +11,6 @@ namespace projek_PBOSQL.VIEWS
 {
     public partial class UC_ItemPupuk : UserControl
     {
-        // Menyembunyikan properti dari radar deteksi Windows Forms Designer
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int id_pupuk { get; set; }
@@ -42,13 +41,12 @@ namespace projek_PBOSQL.VIEWS
             lblHarga.Text = "Rp " + harga.ToString("N0") + " /Kg";
             lblStok.Text = "Stok: " + stok + " Kg";
 
-            // Logika load gambar dinamis
             if (string.IsNullOrEmpty(namaFileGambar)) namaFileGambar = "default.png";
             string pathGambar = System.IO.Path.Combine(Application.StartupPath, "Images", namaFileGambar);
 
             if (System.IO.File.Exists(pathGambar))
             {
-                pgGambar.ImageLocation = pathGambar; // 💡 Sesuaikan 'picFoto' dengan nama PictureBox-mu
+                pgGambar.ImageLocation = pathGambar; 
             }
             else
             {

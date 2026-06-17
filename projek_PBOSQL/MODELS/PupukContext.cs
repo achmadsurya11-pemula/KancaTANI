@@ -103,7 +103,6 @@ namespace projek_PBOSQL.MODELS
                     cmd.Parameters.AddWithValue("@nama", nama_pupuk);
                     cmd.Parameters.AddWithValue("@harga", HargaKg);
 
-                    // Mengambil hasil return scalar (true/false) 
                     object result = cmd.ExecuteScalar();
 
                     if (result != null && result != DBNull.Value)

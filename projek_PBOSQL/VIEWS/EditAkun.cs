@@ -49,7 +49,7 @@ namespace projek_PBOSQL.VIEWS
 
         private void btnSimpanEdit_Click_1(object sender, EventArgs e)
         {
-            //Validasi Input 
+             
             if (string.IsNullOrWhiteSpace(txtEditUsername.Text) || string.IsNullOrWhiteSpace(txtEditNotelp.Text))
             {
                 MessageBox.Show("Username dan Nomor Telepon tidak boleh kosong!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -57,7 +57,7 @@ namespace projek_PBOSQL.VIEWS
             }
 
 
-            // Ambil data yang diketik user 
+            
             string usernameBaru = txtEditUsername.Text.Trim();
             string noTelpBaru = txtEditNotelp.Text.Trim();
             string passwordBaru = txtEditPass.Text.Trim();

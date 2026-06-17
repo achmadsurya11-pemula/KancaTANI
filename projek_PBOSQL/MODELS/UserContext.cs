@@ -48,7 +48,7 @@ namespace projek_PBOSQL.MODELS
                                 return new Petani(idAkunDariDB, pass, uName, roleText, bisaModePetani);
                             }
 
-                            pengguna.id_akun = idAkunDariDB;
+                            pengguna.IDAkun = idAkunDariDB;
 
                             return pengguna;
                         }
