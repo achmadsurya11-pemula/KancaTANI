@@ -165,8 +165,47 @@ namespace projek_PBOSQL.MODELS
                     conn.Close();
                 }
             }
-
             return dt;
+        }
+
+        public int GetStokById(int idPupuk)
+        {
+            int stokSekarang = 0;
+            NpgsqlConnection conn = ConnectDB.GetConn(); 
+
+            try
+            {
+                if (conn.State == System.Data.ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+
+                string query = "SELECT stock FROM stock_pupuk WHERE id_pupuk = @id_pupuk";
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id_pupuk", idPupuk);
+
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        stokSekarang = Convert.ToInt32(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Gagal mengecek stok database: " + ex.Message);
+            }
+            finally
+            {
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return stokSekarang;
         }
 
         public (double totalStok, int stockRendah) LabelRingkasan()

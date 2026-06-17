@@ -194,6 +194,19 @@ namespace projek_PBOSQL.VIEWS
                     }
                 }
 
+                foreach (var item in _keranjangBelanja)
+                {
+                    int stokGudang = _stockContext.GetStokById(item.id_pupuk);
+                    if (item.quantity > stokGudang)
+                    {
+                        MessageBox.Show($"Stok '{item.id_pupuk}' tidak cukup!\n" +
+                                        $"Di keranjang: {item.quantity} Kg\n" +
+                                        $"Tersedia: {stokGudang} Kg",
+                                        "Stok Habis", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return; // Transaksi digagalkan di sini
+                    }
+                }
+
                 CONTROLLERS.MetodePembayaran eksekutor = null;
 
                 if (metodePilihan == "Tunai")
@@ -215,6 +228,7 @@ namespace projek_PBOSQL.VIEWS
                         RefreshDataGridViewKeranjang();
                         LoadKatalogProdukUC();
                         txtInputPembayaran.Clear();
+                        MessageBox.Show("Transaksi Berhasil!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
